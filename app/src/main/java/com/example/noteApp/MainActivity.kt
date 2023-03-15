@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,26 +12,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.noteApp.Model.UserData
 import com.example.reminder.R
 import com.example.noteApp.View.UserAdapter
+import com.example.reminder.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var addsBtn: FloatingActionButton
     private lateinit var recv: RecyclerView
-//    private lateinit var searchView: SearchView
     private lateinit var userList:ArrayList<UserData>
     private lateinit var userAdapter: UserAdapter
-    @SuppressLint("MissingInflatedId")
+
+    private lateinit var binding: ActivityMainBinding
+    @SuppressLint("MissingInflatedId", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         userList = ArrayList()
-
-//        searchView=findViewById(R.id.search)
-
         addsBtn = findViewById(R.id.addingBtn)
         recv = findViewById(R.id.mRecyclerView)
-
         userAdapter = UserAdapter(this,userList)
 
         recv.layoutManager = LinearLayoutManager(this)
@@ -42,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun addInfo() {
         val inflter = LayoutInflater.from(this)
         val v = inflter.inflate(R.layout.add_item,null)
